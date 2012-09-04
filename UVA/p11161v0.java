@@ -5,7 +5,7 @@
 *    bc9a53289baf23d369484f5343ed5d6c                                          *
 *******************************************************************************/
 
-/*   Problem 11161 - Help My Brother (II)                                      */
+/*   Problem 11161 - Help My Brother (II)                                     */
 
 import java.io.*;
 import java.util.*;
