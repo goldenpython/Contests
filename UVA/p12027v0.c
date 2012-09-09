@@ -5,6 +5,9 @@
 *    bc9a53289baf23d369484f5343ed5d6c                                          *
 *******************************************************************************/
 
+/*   Problem 12027 - Very Big Perfect Squares                                 */
+
+
 
 #include <stdio.h>
 #include <string.h>
