@@ -5,7 +5,7 @@
 *    bc9a53289baf23d369484f5343ed5d6c                                          *
 *******************************************************************************/
 
-/*   Problem 443 - Knight Moves                                               */
+/*   Problem 443 - Humble Numbers                                             */
 
 
 #include <stdio.h>
