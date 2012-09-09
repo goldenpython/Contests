@@ -8,7 +8,6 @@
 /*   Problem 787 - Maximum Sub-sequence Product                               */
 
 
-
 import java.io.*;
 import java.util.*;
 import java.math.BigInteger;
