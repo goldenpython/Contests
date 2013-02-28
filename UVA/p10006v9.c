@@ -5,7 +5,7 @@
 *    bc9a53289baf23d369484f5343ed5d6c                                          *
 *******************************************************************************/
 
-/*   Problem 11121 - 10006 - Carmichael Numbers                               */
+/*   Problem 10006 - Carmichael Numbers                                       */
 
 
 #include <stdio.h>
