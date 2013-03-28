@@ -10,6 +10,7 @@
 
 
 #include <stdio.h>
+#include <string.h>
 
 int main() {
 	char *p, szLine[1024];

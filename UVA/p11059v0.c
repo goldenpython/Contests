@@ -10,6 +10,8 @@
 
 
 #include <stdio.h>
+#include <string.h>
+
 
 int main() {
 	int n, i, j, k, nr[20], zeros[20], nrzeros, nrcase = 0, haspositives;

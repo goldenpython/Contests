@@ -10,6 +10,7 @@
 
 
 #include <stdio.h>
+#include <string.h>
 
 struct PAL{
 	int hh, mm, id;

@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 #define MAX		205
 #define MAX_P	60

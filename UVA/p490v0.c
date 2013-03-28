@@ -9,6 +9,7 @@
 
 
 #include <stdio.h>
+#include <string.h>
 
 char szLines[128][128], szLines1[128][128];
 
