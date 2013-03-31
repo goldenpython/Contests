@@ -49,7 +49,7 @@ void add(int *d, int *s)
 	d[0] = nrc;
 }
 
-void main() 
+int main() 
 {
 	int n, a, i;
 
@@ -71,4 +71,6 @@ void main()
 			printf("%04d", sum[i]);
 		printf("\n");
 	}
+
+	return 0;
 }
