@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX			1000012
 #define NR_PRIMES	80000
