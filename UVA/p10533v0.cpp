@@ -62,7 +62,7 @@ void init() {
     }
 }
 
-void main() {
+int main() {
     int t1, t2, nri, i;
 
     init();
@@ -74,4 +74,6 @@ void main() {
 
         printf("%d\n", ip[t2] - ip[t1 - 1]);
     }
+
+    return 0;
 }

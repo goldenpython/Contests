@@ -19,7 +19,8 @@ int main() {
 	};
 
 	int i;
-	char *p, kmap[255], szLine[255];
+	const char *p;
+	char kmap[255], szLine[255];
 
 	memset(kmap, 0, sizeof(kmap));
 
