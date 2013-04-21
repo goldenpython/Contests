@@ -23,7 +23,7 @@ int main() {
 
 	#ifndef ONLINE_JUDGE
 		freopen("input//10908.txt", "rt", stdin);
-	#endif // ONLINE_JUDGE
+	#endif /* ONLINE_JUDGE */
 
 	for (sscanf(gets(szLine), "%d", &nNoCases); nNoCases; nNoCases--) {
 		sscanf(gets(szLine), "%d %d %d", &nNoLines, &nNoColumns, &nNoTests);
