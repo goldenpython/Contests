@@ -5,6 +5,8 @@
 *    bc9a53289baf23d369484f5343ed5d6c                                          *
 *******************************************************************************/
 
+/*   Problem 10222 - Decode the Mad man                                       */
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,7 +21,7 @@ int main() {
 	};
 
 	int i;
-	const char *p;
+	char *p;
 	char kmap[255], szLine[255];
 
 	memset(kmap, 0, sizeof(kmap));
