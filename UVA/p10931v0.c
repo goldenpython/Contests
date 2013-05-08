@@ -29,7 +29,7 @@ int main() {
 			n >>= 1;
 		}
 
-		//printf("The parity of %d is %d (mod 2).\n", nn, par);
+		/* printf("The parity of %d is %d (mod 2).\n", nn, par); */
 		printf("The parity of ");
 		for (i = strlen(aux) - 1; i >= 0; i--)
 			printf("%c", aux[i]);
