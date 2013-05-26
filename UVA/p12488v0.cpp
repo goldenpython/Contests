@@ -17,10 +17,11 @@ int main() {
 	int nN;
 
 	while (scanf("%d", &nN) == 1) {
-		int arrnStart[MAX_DRIVERS], arrnPos[MAX_DRIVERS];
+		int arrnPos[MAX_DRIVERS];
 		for (int nLoop = 0; nLoop < nN; nLoop++) {
-			scanf("%d", &arrnStart[nLoop]);
-			arrnPos[arrnStart[nLoop]] = nLoop;
+			int nNumber;
+			scanf("%d", &nNumber);
+			arrnPos[nNumber] = nLoop;
 		}
 
 		int arrnGoal[MAX_DRIVERS];
