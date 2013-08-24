@@ -36,6 +36,8 @@ int main() {
 				cin >> nNodeTo;
 				
 				nNodeTo--;
+				if (nNodeTo < 0 || nNodeTo >= nV)
+					continue;
 
 				arr2nGraph[nNode][++arr2nGraph[nNode][0]] = nNodeTo;
 				arr2nGraph[nNodeTo][++arr2nGraph[nNodeTo][0]] = nNode;
