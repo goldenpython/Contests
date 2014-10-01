@@ -42,7 +42,7 @@ void GenPrimes(vector<int> &roPrimes, int nTo, int nNoPrimes) {
 void Factorize(int nNumber, const vector<int> &roPrimes, vector< pair<int, int> > &roPrimeFactors) {
 	roPrimeFactors.clear();
 
-	int nLimit = static_cast<int>(sqrt(nNumber)) + 1;
+	int nLimit = static_cast<int>(sqrt(static_cast<float>(nNumber))) + 1;
 	for (int i = 0; i < roPrimes.size() && roPrimes[i] <= nLimit; i++) {
 		if (!(nNumber % roPrimes[i])) {
 			pair<int, int> oFactor(roPrimes[i], 0);
@@ -52,7 +52,7 @@ void Factorize(int nNumber, const vector<int> &roPrimes, vector< pair<int, int> 
 				nNumber /= roPrimes[i];
 			} while (!(nNumber % roPrimes[i]));
 
-			nLimit = static_cast<int>(sqrt(nNumber)) + 1;
+			nLimit = static_cast<int>(sqrt(static_cast<float>(nNumber))) + 1;
 			roPrimeFactors.push_back(oFactor);
 		}
 	}
@@ -63,7 +63,7 @@ void Factorize(int nNumber, const vector<int> &roPrimes, vector< pair<int, int> 
 
 int main() {
 	const int MAX = 10000000;
-	const int MAX_PRIME = static_cast<int>(sqrt(MAX) + 1);
+	const int MAX_PRIME = static_cast<int>(sqrt(static_cast<float>(MAX)) + 1);
 	const int MAX_NO_PRIMES = 50;
 
 	vector<int> oPrimes;
