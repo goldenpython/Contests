@@ -48,7 +48,7 @@ int main() {
 				p2 += i % 10, i /= 10;
 		}
 
-		printf("%.2f %\n", 100 * (p1 > p2 ? (float)p2 / p1 : (float)p1 / p2));
+		printf("%.2f %%\n", 100 * (p1 > p2 ? (float)p2 / p1 : (float)p1 / p2));
 	}
 
 	return 0;

@@ -108,7 +108,7 @@ int main() {
 
 		if (nSize > 0) {
 			vector<string>::iterator oIt = lower_bound(arrAll.begin() + arrBeginIndex[nSize - 1], arrAll.begin() + arrBeginIndex[nSize], szString);
-			printf("%d\n", oIt - arrAll.begin() + 1);
+			printf("%d\n", static_cast<int>(oIt - arrAll.begin() + 1));
 		}
 	}
 
