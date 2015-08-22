@@ -33,6 +33,7 @@ int main() {
 					const string &roString = oIt1->size() <= oIt2->size() ? *oIt2 : *oIt1;
 					if (!roString.compare(0, roPrefix.size(), roPrefix)) {
 						bHasSol = false;
+						oIt1 = oVecEncodings.end() - 1;
 						break;
 					}
 				}
