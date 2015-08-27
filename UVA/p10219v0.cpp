@@ -5,7 +5,7 @@
 *    bc9a53289baf23d369484f5343ed5d6c                                          *
 *******************************************************************************/
 
-/*   Problem 10790 - How Many Points of Intersection?                         */
+/*   Problem 10219 - Find the ways !                                          */
 
 
 #include <iostream>
