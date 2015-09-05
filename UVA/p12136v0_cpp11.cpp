@@ -43,7 +43,7 @@ int main() {
 		int nTM1, nTM2;
 		ReadTimes(oLine, nTM1, nTM2);
 
-		bool bNoMeeting = nTM1 >= nTW1 && nTM1 <= nTW2 || nTM2 >= nTW1 && nTM2 <= nTW2;
+		bool bNoMeeting = nTM1 >= nTW1 && nTM1 <= nTW2 || nTW1 >= nTM1 && nTW1 <= nTM2;
 		cout << "Case " << nCaseLoop << ": " << (bNoMeeting ? "Mrs Meeting" : "Hits Meeting") << endl;
 	}
 
