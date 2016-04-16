@@ -1,0 +1,40 @@
+/*******************************************************************************
+*    Cristian Alexandrescu                                                     *
+*    2163013577ba2bc237f22b3f4d006856                                          *
+*    11a4bb2c77aca6a9927b85f259d9af10db791ce5cf884bb31e7f7a889d4fb385          *
+*    bc9a53289baf23d369484f5343ed5d6c                                          *
+*******************************************************************************/
+
+/*   Problem 1260 - Sales                                                     */
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+
+	int nNoTestCasesLeft;
+	cin >> nNoTestCasesLeft;
+	while (nNoTestCasesLeft--) {
+		vector<int> oVecDailySales;
+
+		int nNoDays;
+		cin >> nNoDays;
+		while (nNoDays--) {
+			int nAmount;
+			cin >> nAmount;
+			oVecDailySales.push_back(nAmount);
+		}
+
+		size_t nTotalSum = 0;
+		for (auto oIt = oVecDailySales.cbegin(); oIt != oVecDailySales.cend(); oIt++)
+			nTotalSum += count_if(oVecDailySales.cbegin(), oIt, [&oIt] (const int nVal) { return *oIt >= nVal; });
+
+		cout << nTotalSum << endl;
+	}
+
+	return 0;
+}
