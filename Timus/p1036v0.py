@@ -6,6 +6,9 @@
 ################################################################################
 
 
+#    Problem 1036. Lucky Tickets                                               #
+#    http://acm.timus.ru/problem.aspx?space=1&num=1036                         #
+
 import sys
 
 A = [int(x) for x in input().split(' ')]
