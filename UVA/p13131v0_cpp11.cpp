@@ -84,6 +84,7 @@ unsigned int Sol(unsigned int nStep, unsigned int nK, unsigned int nCurrentNumbe
 	if (nStep == roPrimeFactors.size())
 		return nCurrentNumber;
 
+	auto &roCurrentFactor = roPrimeFactors[nStep];
 	unsigned int nCurrentCandidate = nCurrentNumber, nSum = 0;
 	for (unsigned int nLoopPow = 0; nLoopPow <= roCurrentFactor.second; nLoopPow++, nCurrentCandidate *= roCurrentFactor.first) {
 		if (!(nCurrentCandidate % nK))
