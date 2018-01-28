@@ -1,3 +1,13 @@
+/*******************************************************************************
+*    Cristian Alexandrescu                                                     *
+*    2163013577ba2bc237f22b3f4d006856                                          *
+*    11a4bb2c77aca6a9927b85f259d9af10db791ce5cf884bb31e7f7a889d4fb385          *
+*    bc9a53289baf23d369484f5343ed5d6c                                          *
+*******************************************************************************/
+
+/*   Problem 10033 - Interpreter                                              */
+
+
 #include <iostream>
 #include <string>
 
@@ -7,26 +17,27 @@ int main() {
 	int nNoTestCases;
 	string oLine;
 
-	for (getline(cin, oLine), nNoTestCases = stoi(oLine); nNoTestCases--; ) {
+	for (getline(cin, oLine), nNoTestCases = stoi(oLine), getline(cin, oLine); nNoTestCases--; ) {
 		struct MACHINE_STATE {
 			int registers[10];
 			int memory[1000];
 		} oMachineState = {0};
 
-		getline(cin, oLine);
 		int nMemoryLocation = 0;
 		for ( ; getline(cin, oLine) && oLine.size() > 1; )
 			oMachineState.memory[nMemoryLocation++] = stoi(oLine);
 
 		nMemoryLocation = 0;
 		int nExecutedInstructions = 0;
-		while (true) {
+		bool bStop = false;
+		while (!bStop) {
 			nExecutedInstructions++;
 			int nFirstInstructionDigit = oMachineState.memory[nMemoryLocation] / 100;
 			int nSecondInstructionDigit = (oMachineState.memory[nMemoryLocation] % 100) / 10;
 			int nThirdInstructionDigit = oMachineState.memory[nMemoryLocation] % 10;
 			switch (nFirstInstructionDigit) {
 				case 1:
+					bStop = true;
 					break;
 				case 2:
 					oMachineState.registers[nSecondInstructionDigit] = nThirdInstructionDigit;
@@ -65,7 +76,9 @@ int main() {
 			nMemoryLocation++;
 		}
 
-		cout << nExecutedInstructions << endl << endl;
+		cout << nExecutedInstructions << endl;
+		if (nNoTestCases)
+			cout << endl;
 	}
 	
 	return 0;
