@@ -1,0 +1,36 @@
+/*******************************************************************************
+*    Cristian Alexandrescu                                                     *
+*    2163013577ba2bc237f22b3f4d006856                                          *
+*    11a4bb2c77aca6a9927b85f259d9af10db791ce5cf884bb31e7f7a889d4fb385          *
+*    bc9a53289baf23d369484f5343ed5d6c                                          *
+*******************************************************************************/
+
+/*   Problem 10714 - Ants                                                     */
+
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+	int nNoTestCases;
+	for (cin >> nNoTestCases; nNoTestCases--; ) {
+		int nPoleLen, nNoAnts, nGreatestMax = 0, nGreatestMin = 0;
+		for (cin >> nPoleLen >> nNoAnts; nNoAnts--; ) {
+			int nAntDistMin;
+			cin >> nAntDistMin;
+			int nAntDistMax = nPoleLen - nAntDistMin;
+
+			if (nAntDistMin > nAntDistMax)
+				swap(nAntDistMin, nAntDistMax);
+
+			nGreatestMin = max(nGreatestMin, nAntDistMin);
+			nGreatestMax = max(nGreatestMax, nAntDistMax);
+		}
+
+		cout << nGreatestMin << " " << nGreatestMax << endl;
+	}
+
+	return 0;
+}
