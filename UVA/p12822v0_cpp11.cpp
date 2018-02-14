@@ -35,13 +35,9 @@ int ComputeScoreCost(int nScore, const vector<int> &roVecnDigitCost) {
 
 int main() {
 	const auto oNewTable = ctype<char>::classic_table();
-	vector<ctype<char>::mask> bar(oNewTable, oNewTable + ctype<char>::table_size);
-
-	bar[' '] |= ctype_base::space;
-	bar['\t'] &= ~(ctype_base::space | ctype_base::cntrl);
-	bar[':'] |= ctype_base::space;
-
-	cin.imbue(locale(cin.getloc(), new ctype<char>(bar.data())));
+	vector<ctype<char>::mask> oNewMask(oNewTable, oNewTable + ctype<char>::table_size);
+	oNewMask[':'] |= ctype_base::space;
+	cin.imbue(locale(cin.getloc(), new ctype<char>(oNewMask.data())));
 
 	const vector<int> oVecnDigitCost = { 6, 2, 5, 5, 4, 5, 6, 3, 7, 6};
 
