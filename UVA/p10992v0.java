@@ -39,7 +39,7 @@ class Main {
 
 	public static void main(String args[]) {
 		String sLine;
-		boolean bFirst = true;
+		boolean bFirstLine = true;
 		
 		while (true) {
 			sLine = ReadLn(MAX_LINE_LEN);
@@ -53,6 +53,11 @@ class Main {
 			boolean bIsLeap = (oYear.mod(BigInteger.valueOf(4)).equals(BigInteger.ZERO)) && (!oYear.mod(BigInteger.valueOf(100)).equals(BigInteger.ZERO) || oYear.mod(BigInteger.valueOf(400)).equals(BigInteger.ZERO));
 			
 			BigInteger oYear2148 = BigInteger.valueOf(2148);
+			
+			if (!bFirstLine)
+				System.out.println("");
+			else
+				bFirstLine = false;			
 			
 			System.out.println(oYear);
 			oYear = oYear.subtract(oYear2148);
@@ -107,7 +112,6 @@ class Main {
 			
 			if (!bAtLeastOneGhost)
 				System.out.println("No ghost will come in this year");							
-			
 		}
 	}
 }
