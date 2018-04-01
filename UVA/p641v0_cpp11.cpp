@@ -18,6 +18,7 @@
 
 using namespace std;
 
+inline int CharToIntCode(char c) {
 	if (c == '_')
 		return 0;
 	else if (c == '.')
@@ -26,6 +27,7 @@ using namespace std;
 		return c - 'a' + 1;
 }
 
+inline char IntCodeToChar(int nN) {
 	if (nN == 0)
 		return '_';
 	else if (nN == 27)
@@ -38,6 +40,7 @@ int main() {
 	for (int nK; (cin >> nK), nK; ) {
 		string oCiphertext;
 		cin >> oCiphertext;
+		string oPlainText(oCiphertext);
 
 		for (int nIndex = 0, nLen = static_cast<int>(oCiphertext.size()); nIndex < nLen; nIndex++)
 			oPlainText[(nK * nIndex) % nLen] = IntCodeToChar((CharToIntCode(oCiphertext[nIndex]) + nIndex) % 28);
