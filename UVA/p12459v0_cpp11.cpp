@@ -360,7 +360,7 @@ int main() {
 	for (int nLoop = 2; nLoop < MAX_GENERATIONS; nLoop++) {
 		BIGINT_TYPE oCurrentFib(oVecFibs[nLoop - 1]);
 		oCurrentFib += oVecFibs[nLoop - 2];
-		oVecFibs.push_back(move(oCurrentFib));
+		oVecFibs.push_back(std::move(oCurrentFib));
 	}
 
 	for (int nN; (std::cin >> nN), nN; )

@@ -73,12 +73,12 @@ void FactorizeAsPrimeAtMaxPower(T tNumber, const vector<unsigned int> &roPrimes,
 			} while (!(tNumber % roPrimes[i]));
 
 			nLimit = static_cast<int>(sqrt(static_cast<float>(tNumber))) + 1;
-			roFactorizationPrimeAtMaxPower.emplace_back(tFactor);
+			roFactorizationPrimeAtMaxPower.push_back(move(tFactor));
 		}
 	}
 
 	if (tNumber != 1)
-		roFactorizationPrimeAtMaxPower.emplace_back(tNumber);
+		roFactorizationPrimeAtMaxPower.push_back(move(tNumber));
 }
 
 int main() {

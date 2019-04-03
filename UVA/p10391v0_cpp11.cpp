@@ -18,7 +18,7 @@ using namespace std;
 int main() {
 	vector<string> oVecStrings;
 	for (string oString; cin >> oString; )
-		oVecStrings.push_back(move(oString));
+		oVecStrings.push_back(std::move(oString));
 	
 	for (auto &roString : oVecStrings)
 		for(auto oIt = roString.cbegin() + 1; oIt != roString.cend(); ++oIt)

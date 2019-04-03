@@ -17,7 +17,7 @@
 template<typename T, typename TSTREAM>
 void ReadArray(TSTREAM &roStream, std::vector<T> &roNumbersArray) {
 	for(T oElement; roStream >> oElement; )
-		roNumbersArray.emplace_back(oElement);
+		roNumbersArray.push_back(std::move(oElement));
 }
 
 template<typename T>
