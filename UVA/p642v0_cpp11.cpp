@@ -23,7 +23,7 @@ class AnagramDict {
 			while (getline(cin, oLine), oLine[0] != 'X') {
 				string oSorted(oLine);
 				sort(oSorted.begin(), oSorted.end());
-				m_oMap[oSorted].emplace_back(oLine);
+				m_oMap[oSorted].push_back(move(oLine));
 			}
 
 			for (auto &roIt : m_oMap) {

@@ -66,7 +66,7 @@ int main() {
 			if (!bFoundStandardEncryptedText && IsReference(oLine, oVecEncoding))
 				bFoundStandardEncryptedText = true;
 
-			oVecEncodedStrings.emplace_back(oLine);
+			oVecEncodedStrings.push_back(move(oLine));
 		}
 
 		if (bFoundStandardEncryptedText) {

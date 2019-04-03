@@ -32,7 +32,7 @@ int main() {
 	for (int nLoop = 0; nLoop < nNoStudents; nLoop++) {
 		string oCurrentStudentName;
 		cin >> oCurrentStudentName;
-		oVecoStudentNames.emplace_back(oCurrentStudentName);
+		oVecoStudentNames.push_back(move(oCurrentStudentName));
 	}
 
 	int nNoQueries;
