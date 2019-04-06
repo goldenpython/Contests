@@ -73,7 +73,13 @@ int main() {
 
 				oVecnPositions.reserve(nNoElements);
 				oVecnValues.reserve(nNoElements);
-				for (auto &roPair : oIt->second) {
+
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+				for (const auto &roPair : oIt->second) {
+#else
+				for (auto oItPair = oIt->second.cbegin(); oItPair != oIt->second.cend(); ++oItPair) {
+					auto &roPair = *oItPair;
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 					oVecnPositions.push_back(roPair.first);
 					oVecnValues.push_back(roPair.second);
 				}

@@ -90,8 +90,14 @@ int main() {
 		FactorizeAsPrimeAtMaxPower(nN, oVecnPrimes, oVecoFactorization);
 
 		unsigned int nSol = 0;
-		for (auto nDivisor : oVecoFactorization)
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+		for (const auto nDivisor : oVecoFactorization) {
+#else
+		for (auto oItDivisor = oVecoFactorization.cbegin(); oItDivisor != oVecoFactorization.cend(); ++oItDivisor) {
+			auto nDivisor = *oItDivisor;
+#endif 
 			nSol += nDivisor;
+		}
 
 		if (oVecoFactorization.size() == 1)
 			nSol++;

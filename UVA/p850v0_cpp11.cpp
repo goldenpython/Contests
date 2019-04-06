@@ -70,7 +70,12 @@ int main() {
 		}
 
 		if (bFoundStandardEncryptedText) {
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 			for (auto &roEncodedString : oVecEncodedStrings) {
+#else
+			for (auto oIt = oVecEncodedStrings.begin(); oIt != oVecEncodedStrings.end(); ++oIt) {
+				auto &roEncodedString = *oIt;
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 				DecodeString(roEncodedString, oVecEncoding);
 				cout << roEncodedString << endl;
 			}
