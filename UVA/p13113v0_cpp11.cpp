@@ -15,6 +15,11 @@
 
 using namespace std;
 
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+long int lround(double x) {
+	return static_cast<long int>(x + 0.5);
+}
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 
 template<typename T>
 void ReadArray(int nNoNumbers, std::vector<T> &roNumbersArray) {
