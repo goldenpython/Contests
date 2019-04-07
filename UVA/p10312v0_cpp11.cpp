@@ -431,35 +431,50 @@ T FromFactorizationToNumber(const std::vector<unsigned int> &roPrimes, std::vect
 // from : https://en.wikipedia.org/wiki/Schröder–Hipparchus_number
 // needs optimization
 template <typename T, int K = 1>
-T GetGeneralizedCatalan(const std::vector<unsigned int> &roPrimes, int nN) {
-	T oSuperCatalan(0);
-	for (int nI = 1; nI <= nN; nI++) {
-		std::vector<unsigned int> oPowers(roPrimes.size());
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+class GetGeneralizedCatalanWrapperClass { public: static
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
+	T GetGeneralizedCatalan(const std::vector<unsigned int> &roPrimes, int nN) {
+		T oSuperCatalan(0);
+		for (int nI = 1; nI <= nN; nI++) {
+			std::vector<unsigned int> oPowers(roPrimes.size());
 
-		FactorizeComb(roPrimes, oPowers, nN, nI);
-		FactorizeComb(roPrimes, oPowers, nN, nI - 1);
-		Factorize(roPrimes, oPowers, nN, -1);
+			FactorizeComb(roPrimes, oPowers, nN, nI);
+			FactorizeComb(roPrimes, oPowers, nN, nI - 1);
+			Factorize(roPrimes, oPowers, nN, -1);
 
-		if (K > 1) {
-			for (int nPow2 = nI - 1; nPow2; nPow2--)
-				Factorize(roPrimes, oPowers, K, 1);
+			if (K > 1) {
+				for (int nPow2 = nI - 1; nPow2; nPow2--)
+					Factorize(roPrimes, oPowers, K, 1);
+			}
+
+			T oCurrent(FromFactorizationToNumber<T>(roPrimes, oPowers));
+			oSuperCatalan += oCurrent;
 		}
 
-		T oCurrent(FromFactorizationToNumber<T>(roPrimes, oPowers));
-		oSuperCatalan += oCurrent;
+		return oSuperCatalan;
 	}
 
-	return oSuperCatalan;
-}
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+};
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 
 template <typename T>
 T GetSuperCatalan(const std::vector<unsigned int> &roPrimes, int nN) {
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+	return GetGeneralizedCatalanWrapperClass<T, 2>::GetGeneralizedCatalan(roPrimes, nN);
+#else
 	return GetGeneralizedCatalan<T, 2>(roPrimes, nN);
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 }
 
 template <typename T>
 T GetCatalan(const std::vector<unsigned int> &roPrimes, int nN) {
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+	return GetGeneralizedCatalanWrapperClass<T>::GetGeneralizedCatalan(roPrimes, nN);
+#else
 	return GetGeneralizedCatalan<T>(roPrimes, nN);
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 }
 
 int main() {

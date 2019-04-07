@@ -21,7 +21,7 @@ void ReadArray(int nNoElements, std::vector<T> &roVecElementsArray) {
 	while (nNoElements--) {
 		T oElement;
 		std::cin >> oElement;
-		roVecElementsArray.emplace_back(oElement);
+		roVecElementsArray.push_back(std::move(oElement));
 	}
 }
 
@@ -34,6 +34,9 @@ int main() {
 		sort(oVecnMorning.begin(), oVecnMorning.end(), less<int>());
 		sort(oVecnEvening.begin(), oVecnEvening.end(), greater<int>());
 
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+		const auto nMaxLengthIfNoExtraPayment = nD, nPaymentPerDay = nR;
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 		auto nResult = accumulate(
 			oVecnMorning.begin(),
 			transform(
@@ -41,7 +44,11 @@ int main() {
 				oVecnMorning.cend(),
 				oVecnEvening.cbegin(),
 				oVecnMorning.begin(),
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 				[nMaxLengthIfNoExtraPayment = nD, nPaymentPerDay = nR] (int nMorning, int nEvening) {
+#else
+				[nMaxLengthIfNoExtraPayment, nPaymentPerDay] (int nMorning, int nEvening) {
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 					return max(0, nMorning + nEvening - nMaxLengthIfNoExtraPayment) * nPaymentPerDay;
 				}
 			),

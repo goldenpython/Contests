@@ -24,12 +24,20 @@ int main() {
 		vector<char> oVecRes(oLine.size());
 		for (int nLoop = 0; nLoop < NO_LINES - 2; nLoop++) {
 			getline(cin, oLine);
+
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+			const auto nPower = 1 << nLoop;
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 			transform(
 				oVecRes.cbegin(),
 				oVecRes.cend(),
 				oLine.cbegin(),
 				oVecRes.begin(),
-				[nPower = 1 << nLoop] (char nCharDest, char nChar) { 
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+				[nPower = 1 << nLoop] (char nCharDest, char nChar) {
+#else
+				[nPower] (char nCharDest, char nChar) {
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 					return nCharDest + nPower * (nChar == '\\' ? 1 : 0); 
 				}
 			);

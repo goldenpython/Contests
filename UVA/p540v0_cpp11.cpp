@@ -15,11 +15,17 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <string>
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+#include <functional>
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 
 using namespace std;
 
 class TeamQueueSimulator {
 	public:
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+		TeamQueueSimulator() : m_oMapMemberToTeam(), m_oTeamsQueue(), m_oTeamInTeamQueueSet(8, s_oHasher) { }
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 		bool Read();
 		void Enqueue(int nTeamMember);
 		int Dequeue();
@@ -29,12 +35,27 @@ class TeamQueueSimulator {
 		typedef shared_ptr<TEAM_QUEUE_TYPE> TEAM_QUEUE_REF_TYPE;
 		typedef unordered_map<int, TEAM_QUEUE_REF_TYPE> MEMBER_TO_TEAM_REF_MAP_TYPE;
 		typedef deque<TEAM_QUEUE_REF_TYPE> TEAMS_QUEUE_TYPE;
-		typedef unordered_set<TEAM_QUEUE_REF_TYPE> TEAM_IN_TEAMS_QUEUE_SET_TYPE;
+
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+		typedef function<size_t(const TEAM_QUEUE_REF_TYPE &)> UNORDERED_SET_HASH_TYPE;
+		static UNORDERED_SET_HASH_TYPE s_oHasher;
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
+
+		typedef unordered_set<		TEAM_QUEUE_REF_TYPE
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+									,
+									decltype(s_oHasher)
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
+		> TEAM_IN_TEAMS_QUEUE_SET_TYPE;
 
 		MEMBER_TO_TEAM_REF_MAP_TYPE m_oMapMemberToTeam;
 		TEAMS_QUEUE_TYPE m_oTeamsQueue;
 		TEAM_IN_TEAMS_QUEUE_SET_TYPE m_oTeamInTeamQueueSet;
 };
+
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+	TeamQueueSimulator::UNORDERED_SET_HASH_TYPE TeamQueueSimulator::s_oHasher = [](const TEAM_QUEUE_REF_TYPE& roQ) { return (size_t)(roQ.get()); };
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 
 bool TeamQueueSimulator::Read() {
 	int nNoTeams;

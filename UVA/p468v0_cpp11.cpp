@@ -8,6 +8,13 @@
 /*   Problem 468 - Key to Success                                             */
 
 
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
+
+
 #include <iostream>
 #include <string>
 #include <map>
@@ -19,8 +26,8 @@ using namespace std;
 class CCharStats {
 	public:
 		CCharStats(const string &roString);
-		int GetChar2FreqIndex(char cChar);
-		char GetFreqIndex2Char(int nIndex);
+		int GetChar2FreqIndex(char cChar) const;
+		char GetFreqIndex2Char(int nIndex) const;
 	private:
 		vector<int> m_oVecnChar2FreqIndex;
 		vector<int> m_oVecnFreqIndex2Char;
@@ -36,7 +43,12 @@ CCharStats::CCharStats(const string &roString)
 
 	vector<CHARFREQ> oVecCharFreq(256);
 
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 	for (auto cChar : roString) {
+#else
+	for (auto oItChar = roString.cbegin(); oItChar != roString.cend(); ++oItChar) {
+		auto cChar = *oItChar;
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 		oVecCharFreq[cChar].cChar = cChar;
 		oVecCharFreq[cChar].nFreq++;
 	}
@@ -53,11 +65,11 @@ CCharStats::CCharStats(const string &roString)
 	}
 }
 
-int CCharStats::GetChar2FreqIndex(char cChar) {
+int CCharStats::GetChar2FreqIndex(char cChar) const {
 	return m_oVecnChar2FreqIndex[cChar];
 }
 
-char CCharStats::GetFreqIndex2Char(int nIndex) {
+char CCharStats::GetFreqIndex2Char(int nIndex) const {
 	return m_oVecnFreqIndex2Char[nIndex];
 }
 
@@ -69,11 +81,18 @@ int main() {
 		CCharStats oCharFreq1(oLine1);
 		CCharStats oCharFreq2(oLine2);
 
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+		const auto &roCharFreq2 = oCharFreq2, &roCharFreq1 = oCharFreq1;
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 		transform(
 			oLine2.begin(), 
 			oLine2.end(),
 			oLine2.begin(),
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 			[&roCharFreq2 = oCharFreq2, &roCharFreq1 = oCharFreq1](char cChar) { 
+#else
+			[&roCharFreq2, &roCharFreq1](char cChar) { 
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 				return roCharFreq1.GetFreqIndex2Char(roCharFreq2.GetChar2FreqIndex(cChar)); 
 			}
 		);

@@ -8,6 +8,17 @@
 /*   Problem 642 - Word Amalgamation                                          */
 
 
+
+
+
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
+
+
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -23,10 +34,15 @@ class AnagramDict {
 			while (getline(cin, oLine), oLine[0] != 'X') {
 				string oSorted(oLine);
 				sort(oSorted.begin(), oSorted.end());
-				m_oMap[oSorted].emplace_back(oLine);
+				m_oMap[oSorted].push_back(move(oLine));
 			}
 
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			for (auto &roIt : m_oMap) {
+#else
+			for (auto roItMap = m_oMap.begin(); roItMap != m_oMap.end(); ++roItMap) {
+				auto &roIt = *roItMap;
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 				auto &roVec = roIt.second;
 				sort(roVec.begin(), roVec.end());
 			}
@@ -51,8 +67,14 @@ int main() {
 		if (roVec.size() == 0) {
 			cout << "NOT A VALID WORD" << endl;
 		} else {
-			for (auto &roString : roVec)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+			for (const auto &roString : roVec) {
+#else
+			for (auto roItString = roVec.cbegin(); roItString != roVec.cend(); ++roItString) {
+				auto &roString = *roItString;
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 				cout << roString << endl;
+			}
 		}
 
 		cout << "******" << endl;

@@ -8,6 +8,13 @@
 /*   Problem 13171 - Pixel Art                                                */
 
 
+
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
+
 #include <iostream>
 #include <string>
 
@@ -22,7 +29,12 @@ int main() {
 		string oColors;
 		cin >> nM >> nY >> nC >> oColors;
 
-		for (char cChar : oColors)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+		for (char cChar : oColors) {
+#else
+		for (auto oIt = oColors.cbegin(); oIt != oColors.cend(); ++oIt) {
+			auto cChar = *oIt;
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			switch (cChar) {
 				case 'B':
 					CHECK_COLOR(nM); CHECK_COLOR(nY); CHECK_COLOR(nC);
@@ -46,6 +58,7 @@ int main() {
 					CHECK_COLOR(nC);
 					break;
 			}
+		}
 
 		if (nC < 0 || nY < 0 || nM < 0)
 			cout << "NO" << endl;

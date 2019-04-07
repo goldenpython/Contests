@@ -19,7 +19,7 @@ void ReadArray(int nNoNumbers, std::vector<T> &roVecNumbersArray) {
 	while (nNoNumbers--) {
 		T oElement;
 		std::cin >> oElement;
-		roVecNumbersArray.push_back(oElement);
+		roVecNumbersArray.push_back(std::move(oElement));
 	}
 }
 
@@ -35,7 +35,8 @@ int main() {
 		if (oVecNumbers[0] < 1 || oVecNumbers[0] > MAX_VALUE) {
 			bIsB2Sequence = false;
 		} else {
-			for (auto oItCurrent = next(oVecNumbers.cbegin()), oItPrev = oVecNumbers.cbegin(); oItCurrent != oVecNumbers.cend(); ++oItCurrent)
+			auto oItPrev = oVecNumbers.cbegin();
+			for (auto oItCurrent = next(oItPrev); oItCurrent != oVecNumbers.cend(); ++oItPrev, ++oItCurrent)
 				if (*oItCurrent < 1 || *oItCurrent > MAX_VALUE || *oItCurrent < *oItPrev) {
 					bIsB2Sequence = false;
 					break;

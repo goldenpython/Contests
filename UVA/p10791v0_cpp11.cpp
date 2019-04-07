@@ -8,6 +8,12 @@
 /*   Problem 10791 - Minimum Sum LCM                                          */
 
 
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
+
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -73,12 +79,12 @@ void FactorizeAsPrimeAtMaxPower(T tNumber, const vector<unsigned int> &roPrimes,
 			} while (!(tNumber % roPrimes[i]));
 
 			nLimit = static_cast<int>(sqrt(static_cast<float>(tNumber))) + 1;
-			roFactorizationPrimeAtMaxPower.emplace_back(tFactor);
+			roFactorizationPrimeAtMaxPower.push_back(move(tFactor));
 		}
 	}
 
 	if (tNumber != 1)
-		roFactorizationPrimeAtMaxPower.emplace_back(tNumber);
+		roFactorizationPrimeAtMaxPower.push_back(move(tNumber));
 }
 
 int main() {
@@ -90,8 +96,14 @@ int main() {
 		FactorizeAsPrimeAtMaxPower(nN, oVecnPrimes, oVecoFactorization);
 
 		unsigned int nSol = 0;
-		for (auto nDivisor : oVecoFactorization)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+		for (const auto nDivisor : oVecoFactorization) {
+#else
+		for (auto oItDivisor = oVecoFactorization.cbegin(); oItDivisor != oVecoFactorization.cend(); ++oItDivisor) {
+			auto nDivisor = *oItDivisor;
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			nSol += nDivisor;
+		}
 
 		if (oVecoFactorization.size() == 1)
 			nSol++;

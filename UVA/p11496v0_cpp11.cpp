@@ -50,7 +50,7 @@ int main() {
 			oVecnMagnitudes.cbegin(),
 			oVecnMagnitudes.cend(),
 			oCurrentState,
-			[] (STATE oCurrentState, int nCurrentNumber) {
+			[] (STATE oCurrentState, int nCurrentNumber) -> STATE {
 				int nSign = Sgn(oCurrentState.m_nPrev2 - oCurrentState.m_nPrev) * Sgn(oCurrentState.m_nPrev - nCurrentNumber);
 				if (nSign < 0)
 					oCurrentState.nNoPeaks++;

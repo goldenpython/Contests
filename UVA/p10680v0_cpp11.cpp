@@ -70,13 +70,13 @@ int main() {
 
 	for (int nN; (cin >> nN), nN; ) {
 		int nSol = 1;
-		double llfLognN = log(nN);
-		for (int nLoop = static_cast<int>(llfLognN / log(2)) - static_cast<int>(llfLognN / log(5)); nLoop; nLoop--)
+		double llfLognN = log(static_cast<double>(nN));
+		for (int nLoop = static_cast<int>(llfLognN / log(2.0)) - static_cast<int>(llfLognN / log(5.0)); nLoop; nLoop--)
 			nSol *= 2;
 		nSol %= 10;
 
 		for (auto oIt = next(oVecnPrimes.cbegin(), 2); *oIt <= nN; ++oIt)
-			for (int nLoop = static_cast<int>(llfLognN / log(*oIt)); nLoop; nLoop--)
+			for (int nLoop = static_cast<int>(llfLognN / log(static_cast<double>(*oIt))); nLoop; nLoop--)
 				nSol = (nSol * *oIt) % 10;
 
 		cout << nSol << endl;

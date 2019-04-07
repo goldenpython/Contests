@@ -22,7 +22,7 @@ void ReadArray(std::vector<T> &roVecElementsArray) {
 	while (nNoElements--) {
 		T oElement;
 		std::cin >> oElement;
-		roVecElementsArray.emplace_back(oElement);
+		roVecElementsArray.push_back(std::move(oElement));
 	}
 }
 

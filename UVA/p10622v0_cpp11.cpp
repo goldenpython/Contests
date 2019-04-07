@@ -73,12 +73,21 @@ void Factorize(T tNumber, const vector<unsigned int> &roPrimes, vector<pair<T, u
 			} while (!(tNumber % roPrimes[i]));
 
 			nLimit = static_cast<int>(sqrt(static_cast<float>(tNumber))) + 1;
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 			roFactorization.emplace_back(roPrimes[i], nFactor);
+#else
+			roFactorization.emplace_back(move(make_pair(roPrimes[i], nFactor)));
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 		}
 	}
 
-	if (tNumber != 1)
+	if (tNumber != 1) {
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 		roFactorization.emplace_back(tNumber, 1);
+#else
+		roFactorization.emplace_back(move(make_pair(tNumber, 1)));
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+	}
 }
 
 template <typename T>
@@ -115,10 +124,18 @@ int main() {
 				nCurrent /= 2;
 		}
 
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+		auto &rnCurrent = nCurrent;
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
+
 		for_each(
 			next(oVecFactorization.cbegin()),
 			oVecFactorization.cend(),
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 			[&rnCurrent = nCurrent] (const pair<unsigned int, unsigned int> &roPair) {
+#else
+			[&rnCurrent] (const pair<unsigned int, unsigned int> &roPair) {
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 				rnCurrent = gcd(rnCurrent, roPair.second);
 			}
 		);

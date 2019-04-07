@@ -21,7 +21,7 @@ void ReadArray(std::vector<T> &roNumbersArray) {
 	while (nN--) {
 		T oElement;
 		std::cin >> oElement;
-		roNumbersArray.emplace_back(oElement);
+		roNumbersArray.push_back(std::move(oElement));
 	}
 }
 
