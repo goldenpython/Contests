@@ -8,11 +8,12 @@
 /*   Problem 13130 - Cacho                                                    */
 
 
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
 
 #include <iostream>
-#if defined(_MSC_VER) && (_MSC_VER <= 1600)
-#include <iterator>
-#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 
 class CDices {
 	public:
@@ -32,12 +33,12 @@ bool CDices::IsOk() {
 }
 
 std::istream& operator >> (std::istream &roStream, CDices &roDices) {
-#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 	for (auto &roElem : roDices.m_arrnDives) {
 #else
 	for (auto oItDives = std::begin(roDices.m_arrnDives); oItDives != std::end(roDices.m_arrnDives); ++oItDives) {
 		auto &roElem = *oItDives;
-#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 		roStream >> roElem;
 	}
 

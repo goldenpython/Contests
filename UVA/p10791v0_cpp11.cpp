@@ -8,6 +8,12 @@
 /*   Problem 10791 - Minimum Sum LCM                                          */
 
 
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
+
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -90,12 +96,12 @@ int main() {
 		FactorizeAsPrimeAtMaxPower(nN, oVecnPrimes, oVecoFactorization);
 
 		unsigned int nSol = 0;
-#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 		for (const auto nDivisor : oVecoFactorization) {
 #else
 		for (auto oItDivisor = oVecoFactorization.cbegin(); oItDivisor != oVecoFactorization.cend(); ++oItDivisor) {
 			auto nDivisor = *oItDivisor;
-#endif 
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			nSol += nDivisor;
 		}
 

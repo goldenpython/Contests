@@ -8,6 +8,12 @@
 /*   Problem 10895 - Matrix Transpose                                         */
 
 
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
+
 #include <iostream>
 #include <vector>
 #include <map>
@@ -74,12 +80,12 @@ int main() {
 				oVecnPositions.reserve(nNoElements);
 				oVecnValues.reserve(nNoElements);
 
-#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 				for (const auto &roPair : oIt->second) {
 #else
 				for (auto oItPair = oIt->second.cbegin(); oItPair != oIt->second.cend(); ++oItPair) {
 					auto &roPair = *oItPair;
-#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 					oVecnPositions.push_back(roPair.first);
 					oVecnValues.push_back(roPair.second);
 				}

@@ -85,7 +85,7 @@ void Factorize(T nNumber, const vector<unsigned int> &roPrimes, vector<pair<T, u
 #if !defined(_MSC_VER) || (_MSC_VER > 1600)
 		roFactorization.emplace_back(nNumber, 1);
 #else
-			roFactorization.emplace_back(move(make_pair(nNumber, 1)));
+		roFactorization.emplace_back(move(make_pair(nNumber, 1)));
 #endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 	}
 }

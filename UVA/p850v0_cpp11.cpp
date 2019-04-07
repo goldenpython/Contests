@@ -8,6 +8,11 @@
 /*   Problem 850 - Crypt Kicker II                                            */
 
 
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -70,12 +75,12 @@ int main() {
 		}
 
 		if (bFoundStandardEncryptedText) {
-#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			for (auto &roEncodedString : oVecEncodedStrings) {
 #else
 			for (auto oIt = oVecEncodedStrings.begin(); oIt != oVecEncodedStrings.end(); ++oIt) {
 				auto &roEncodedString = *oIt;
-#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 				DecodeString(roEncodedString, oVecEncoding);
 				cout << roEncodedString << endl;
 			}

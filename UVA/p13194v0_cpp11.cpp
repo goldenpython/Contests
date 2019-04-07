@@ -8,6 +8,14 @@
 /*   Problem 13194 - DPA Numbers II                                           */
 
 
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+    #define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
+
+
+
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -84,7 +92,7 @@ void Factorize(T nNumber, const vector<unsigned int> &roPrimes, vector<pair<T, u
 #if !defined(_MSC_VER) || (_MSC_VER > 1600)
 		roFactorization.emplace_back(nNumber, 1);
 #else
-			roFactorization.emplace_back(move(make_pair(nNumber, 1)));
+		roFactorization.emplace_back(move(make_pair(nNumber, 1)));
 #endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 	}
 }
@@ -104,22 +112,22 @@ int main() {
 
 		vector<unsigned long long> oVecDivisors(1, 1);
 		unsigned long long llSumDivisors = 1;
-#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 		for (const auto &roFactor : oVecFactorization) {
 #else
 		for (auto oItFactor = oVecFactorization.cbegin(); oItFactor != oVecFactorization.cend(); ++oItFactor) {
 			auto &roFactor = *oItFactor;
-#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			unsigned long long llFactor = roFactor.first;
 			vector<unsigned long long> oVecNewDivisors;
 			oVecNewDivisors.reserve(oVecDivisors.size() * roFactor.second);
 			for (auto nPower = 1U; nPower <= roFactor.second; nPower++, llFactor *= roFactor.first) {
-#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 				for (const unsigned long long llDivisor : oVecDivisors) {
 #else
 				for (auto oItDivisor = oVecDivisors.cbegin(); oItDivisor != oVecDivisors.cend(); ++oItDivisor) {
 					auto llDivisor = *oItDivisor;
-#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 					unsigned long long llNewDivisor = llFactor * llDivisor;
 					oVecNewDivisors.push_back(llNewDivisor);
 					llSumDivisors += llNewDivisor;

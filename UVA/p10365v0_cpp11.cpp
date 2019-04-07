@@ -145,19 +145,19 @@ int main() {
 		// sort(oVecDivisors.begin(), oVecDivisors.end());
 
 		unsigned int nSol = std::numeric_limits<unsigned int>::max();
-#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 		for (auto nL : oVecDivisors) {
 #else
 		for (auto oItL = oVecDivisors.cbegin(); oItL != oVecDivisors.cend(); ++oItL) {
 			const auto nL = *oItL;
-#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			unsigned int nRem = nNumber / nL;
-#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			for (auto nW : oVecDivisors) {
 #else
 			for (auto oItW = oVecDivisors.cbegin(); oItW != oVecDivisors.cend(); ++oItW) {
 				const auto nW = *oItW;
-#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 				if (!(nRem % nW)) {
 					unsigned int nH = nRem / nW;
 					unsigned int nVol = (nL * nW + nL * nH + nW * nH) * 2;

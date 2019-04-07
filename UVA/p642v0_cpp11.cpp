@@ -37,7 +37,7 @@ class AnagramDict {
 				m_oMap[oSorted].push_back(move(oLine));
 			}
 
-#if COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			for (auto &roIt : m_oMap) {
 #else
 			for (auto roItMap = m_oMap.begin(); roItMap != m_oMap.end(); ++roItMap) {
@@ -67,7 +67,7 @@ int main() {
 		if (roVec.size() == 0) {
 			cout << "NOT A VALID WORD" << endl;
 		} else {
-#if COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			for (const auto &roString : roVec) {
 #else
 			for (auto roItString = roVec.cbegin(); roItString != roVec.cend(); ++roItString) {
