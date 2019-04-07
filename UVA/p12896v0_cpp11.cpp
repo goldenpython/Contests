@@ -14,9 +14,9 @@
 
 using namespace std;
 
-#ifdef ONLINE_JUDGE
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
 	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
-#endif // ONLINE_JUDGE
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
 	 
 template <typename T>
 static istream& operator >> (istream &roStream, vector<T> &roVector) {
