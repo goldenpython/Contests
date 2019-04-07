@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 int Levenshtein(const std::string &roString1, const std::string &roString2) {
 	std::vector<std::vector<int>> oVec2nDist(roString1.size() + 1, std::vector<int>(roString2.size() + 1));

@@ -14,6 +14,11 @@
 #include <iomanip>
 #include <stdlib.h>
 
+#if !defined(ONLINE_JUDGE) && (_MSC_VER >= 1900)
+	#include <limits.h>
+	#define gets(a) gets_s(a, INT_MAX)
+#endif // !defined(ONLINE_JUDGE) && (_MSC_VER >= 1900)
+
 using namespace std;
 
 int main() {

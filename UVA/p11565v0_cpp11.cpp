@@ -21,6 +21,7 @@
 #include <cmath>
 #include <algorithm>
 #include <limits>
+#include <functional>
 
 using namespace std;
 
