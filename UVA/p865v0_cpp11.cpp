@@ -32,14 +32,24 @@ int main() {
 		for (int nLoop = 0; nLoop < oPlaintext.size(); nLoop++)
 			oVecSubstitutionMap[oPlaintext[nLoop]] = oSubstitution[nLoop];
 
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+		const auto &roVecSubstitutionMap = oVecSubstitutionMap;
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
+
 		for (string oText; getline(cin, oText) && oText.size() > 0; ) {
 			transform(
 				oText.cbegin(), 
 				oText.cend(), 
 				oText.begin(), 
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 				[&roVecSubstitutionMap = oVecSubstitutionMap] (char c) { 
 					return roVecSubstitutionMap[c] ? roVecSubstitutionMap[c] : c;
 				}
+#else
+				[&roVecSubstitutionMap] (char c) { 
+					return roVecSubstitutionMap[c] ? roVecSubstitutionMap[c] : c;
+				}
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 			);
 			cout << oText << endl;
 		}

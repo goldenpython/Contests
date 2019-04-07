@@ -8,6 +8,14 @@
 /*   Problem 11565 - Simple Equations                                         */
 
 
+
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
+
+
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -85,15 +93,15 @@ template <typename T>
 void GetDivisors(vector<pair<T, unsigned int>> &roVecFactorization, vector<T> &roVecDivisors) {
 	roVecDivisors.push_back(1);
 #ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
-	for (const auto &oFactor : roVecFactorization) {
+	for (const auto &roFactor : roVecFactorization) {
 #else
 	for (auto oIt = roVecFactorization.cbegin(); oIt != roVecFactorization.cend(); ++oIt) {
-		const auto oFactor(*oIt);
+		const auto &roFactor(*oIt);
 #endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
-		T tFactor = oFactor.first;
+		T tFactor = roFactor.first;
 		vector<T> oVecNewDivisors;
-		oVecNewDivisors.reserve(roVecDivisors.size() * oFactor.second);
-		for (auto nPower = 1U; nPower <= oFactor.second; nPower++, tFactor *= oFactor.first) {
+		oVecNewDivisors.reserve(roVecDivisors.size() * roFactor.second);
+		for (auto nPower = 1U; nPower <= roFactor.second; nPower++, tFactor *= roFactor.first) {
 #ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			for (const auto tDivisor : roVecDivisors) {
 #else

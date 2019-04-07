@@ -73,12 +73,21 @@ void Factorize(T nNumber, const vector<unsigned int> &roPrimes, vector<pair<T, u
 			} while (!(nNumber % roPrimes[i]));
 
 			nLimit = static_cast<int>(sqrt(static_cast<float>(nNumber))) + 1;
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 			roFactorization.emplace_back(roPrimes[i], nFactor);
+#else
+			roFactorization.emplace_back(move(make_pair(roPrimes[i], nFactor)));
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 		}
 	}
 
-	if (nNumber != 1)
+	if (nNumber != 1) {
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 		roFactorization.emplace_back(nNumber, 1);
+#else
+			roFactorization.emplace_back(move(make_pair(nNumber, 1)));
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+	}
 }
 
 int main() {

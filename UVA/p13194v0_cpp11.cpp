@@ -72,12 +72,21 @@ void Factorize(T nNumber, const vector<unsigned int> &roPrimes, vector<pair<T, u
 			} while (!(nNumber % roPrimes[i]));
 
 			nLimit = static_cast<int>(sqrt(static_cast<float>(nNumber))) + 1;
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 			roFactorization.emplace_back(roPrimes[i], nFactor);
+#else
+			roFactorization.emplace_back(move(make_pair(roPrimes[i], nFactor)));
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 		}
 	}
 
-	if (nNumber != 1)
+	if (nNumber != 1) {
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 		roFactorization.emplace_back(nNumber, 1);
+#else
+			roFactorization.emplace_back(move(make_pair(nNumber, 1)));
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+	}
 }
 
 int main() {
@@ -95,12 +104,22 @@ int main() {
 
 		vector<unsigned long long> oVecDivisors(1, 1);
 		unsigned long long llSumDivisors = 1;
-		for (const auto &oFactor : oVecFactorization) {
-			unsigned long long llFactor = oFactor.first;
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+		for (const auto &roFactor : oVecFactorization) {
+#else
+		for (auto oItFactor = oVecFactorization.cbegin(); oItFactor != oVecFactorization.cend(); ++oItFactor) {
+			auto &roFactor = *oItFactor;
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+			unsigned long long llFactor = roFactor.first;
 			vector<unsigned long long> oVecNewDivisors;
-			oVecNewDivisors.reserve(oVecDivisors.size() * oFactor.second);
-			for (auto nPower = 1; nPower <= oFactor.second; nPower++, llFactor *= oFactor.first) {
+			oVecNewDivisors.reserve(oVecDivisors.size() * roFactor.second);
+			for (auto nPower = 1U; nPower <= roFactor.second; nPower++, llFactor *= roFactor.first) {
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 				for (const unsigned long long llDivisor : oVecDivisors) {
+#else
+				for (auto oItDivisor = oVecDivisors.cbegin(); oItDivisor != oVecDivisors.cend(); ++oItDivisor) {
+					auto llDivisor = *oItDivisor;
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 					unsigned long long llNewDivisor = llFactor * llDivisor;
 					oVecNewDivisors.push_back(llNewDivisor);
 					llSumDivisors += llNewDivisor;

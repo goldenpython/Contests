@@ -10,6 +10,9 @@
 
 
 #include <iostream>
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+#include <iterator>
+#endif // defined(_MSC_VER) && (_MSC_VER <= 1600)
 
 class CDices {
 	public:
@@ -29,8 +32,14 @@ bool CDices::IsOk() {
 }
 
 std::istream& operator >> (std::istream &roStream, CDices &roDices) {
-	for (auto &roElem : roDices.m_arrnDives)
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
+	for (auto &roElem : roDices.m_arrnDives) {
+#else
+	for (auto oItDives = std::begin(roDices.m_arrnDives); oItDives != std::end(roDices.m_arrnDives); ++oItDives) {
+		auto &roElem = *oItDives;
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 		roStream >> roElem;
+	}
 
 	return roStream;
 }

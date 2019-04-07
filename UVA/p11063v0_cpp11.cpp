@@ -19,7 +19,7 @@ void ReadArray(int nNoNumbers, std::vector<T> &roVecNumbersArray) {
 	while (nNoNumbers--) {
 		T oElement;
 		std::cin >> oElement;
-		roVecNumbersArray.push_back(oElement);
+		roVecNumbersArray.push_back(std::move(oElement));
 	}
 }
 

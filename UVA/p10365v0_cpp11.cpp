@@ -8,6 +8,12 @@
 /*   Problem 10365 - Blocks                                                   */
 
 
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
+
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -73,23 +79,42 @@ void Factorize(T tNumber, const vector<unsigned int> &roPrimes, vector<pair<T, u
 			} while (!(tNumber % roPrimes[i]));
 
 			nLimit = static_cast<int>(sqrt(static_cast<float>(tNumber))) + 1;
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 			roFactorization.emplace_back(roPrimes[i], nFactor);
+#else
+			roFactorization.emplace_back(move(make_pair(roPrimes[i], nFactor)));
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 		}
 	}
 
-	if (tNumber != 1)
+	if (tNumber != 1) {
+#if !defined(_MSC_VER) || (_MSC_VER > 1600)
 		roFactorization.emplace_back(tNumber, 1);
+#else
+		roFactorization.emplace_back(move(make_pair(tNumber, 1)));
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
+	}
 }
 
 template <typename T>
 void GetDivisors(vector<pair<T, unsigned int>> &roVecFactorization, vector<T> &roVecDivisors) {
 	roVecDivisors.push_back(1);
-	for (const auto &oFactor : roVecFactorization) {
-		T tFactor = oFactor.first;
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+	for (const auto &roFactor : roVecFactorization) {
+#else
+	for (auto oIt = roVecFactorization.cbegin(); oIt != roVecFactorization.cend(); ++oIt) {
+		const auto &roFactor(*oIt);
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+		T tFactor = roFactor.first;
 		vector<T> oVecNewDivisors;
-		oVecNewDivisors.reserve(roVecDivisors.size() * oFactor.second);
-		for (auto nPower = 1U; nPower <= oFactor.second; nPower++, tFactor *= oFactor.first) {
+		oVecNewDivisors.reserve(roVecDivisors.size() * roFactor.second);
+		for (auto nPower = 1U; nPower <= roFactor.second; nPower++, tFactor *= roFactor.first) {
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 			for (const auto tDivisor : roVecDivisors) {
+#else
+			for (auto oIt = roVecDivisors.cbegin(); oIt != roVecDivisors.cend(); ++oIt) {
+				const auto tDivisor(*oIt);
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 				T tNewDivisor = tFactor * tDivisor;
 				oVecNewDivisors.push_back(tNewDivisor);
 			}
@@ -132,7 +157,7 @@ int main() {
 #else
 			for (auto oItW = oVecDivisors.cbegin(); oItW != oVecDivisors.cend(); ++oItW) {
 				const auto nW = *oItW;
-#endif // #if !defined(_MSC_VER) || (_MSC_VER > 1600)
+#endif // !defined(_MSC_VER) || (_MSC_VER > 1600)
 				if (!(nRem % nW)) {
 					unsigned int nH = nRem / nW;
 					unsigned int nVol = (nL * nW + nL * nH + nW * nH) * 2;

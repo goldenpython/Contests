@@ -8,6 +8,11 @@
 /*   Problem 11965 - Extra Spaces                                             */
 
 
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
 #include <iostream>
 #include <string>
 
@@ -22,7 +27,12 @@ int ReadLineContainingInt() {
 string RemoveExtraSpaces(const string &roString) {
 	string oTrimmedString;
 	bool bPrevCharacterWasSpace = false;
-	for (auto cCharacter : roString) {
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+		for (auto cCharacter : roString) {
+#else
+		for (auto oIt = roString.cbegin(); oIt != roString.cend(); ++oIt) {
+			auto cCharacter = *oIt;
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 		if (!bPrevCharacterWasSpace || cCharacter != ' ')
 			oTrimmedString.push_back(cCharacter);
 

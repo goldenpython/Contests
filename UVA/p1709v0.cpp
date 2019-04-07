@@ -18,9 +18,9 @@ int main() {
 	int nP, nA, nB, nC, nD, nN;
 	while (cin >> nP >> nA >> nB >> nC >> nD >> nN) {
 		double fSol = 0;
-		double fMax = (sin(nA + nB) + cos(nC + nD) + 2);
+		double fMax = (sin(static_cast<double>(nA + nB)) + cos(static_cast<double>(nC + nD)) + 2);
 		for (int nLoop = 2; nLoop <= nN; nLoop++) {
-			double fPrice = (sin(nA * nLoop + nB) + cos(nC * nLoop + nD) + 2);
+			double fPrice = (sin(static_cast<double>(nA * nLoop + nB)) + cos(static_cast<double>(nC * nLoop + nD)) + 2);
 			if (fMax - fPrice > fSol)
 				fSol = fMax - fPrice;
 			else if (fPrice > fMax)

@@ -8,6 +8,12 @@
 /*   Problem 10391 - Compound Words                                           */
 
 
+
+#if defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+	#define COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+#endif // defined(ONLINE_JUDGE) || (!defined(_MSC_VER) || (_MSC_VER > 1600))
+
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -19,8 +25,13 @@ int main() {
 	vector<string> oVecStrings;
 	for (string oString; cin >> oString; )
 		oVecStrings.push_back(std::move(oString));
-	
-	for (auto &roString : oVecStrings)
+
+#ifdef COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
+	for (const auto &roString : oVecStrings) {
+#else
+	for (auto oItString = oVecStrings.cbegin(); oItString != oVecStrings.cend(); ++oItString) {
+		auto &roString = *oItString;
+#endif // COMPILER_SUPPORTS_RANGE_BASED_FOR_LOOP
 		for(auto oIt = roString.cbegin() + 1; oIt != roString.cend(); ++oIt)
 			if (
 				binary_search(oVecStrings.cbegin(), oVecStrings.cend(), string(roString.cbegin(), oIt)) &&
@@ -29,6 +40,7 @@ int main() {
 				cout << roString << endl;
 				break;
 			}
+	}
 	
 
 	return 0;

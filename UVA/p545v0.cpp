@@ -31,7 +31,7 @@ int main() {
 	for (cin >> nNoTestCasesLeft; nNoTestCasesLeft--; ) {
 		int nN;
 		cin >> nN;
-		double lfLog10 = nN * log10(2);
+		double lfLog10 = nN * log10(2.0);
 		int nY = 1 + lfLog10;
 		double lfBase = pow(10, nY - lfLog10);
 		cout << "2^" << "-" << nN << " = " << setprecision(3) << fixed << lfBase << "E-" << nY << endl;

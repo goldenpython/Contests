@@ -28,7 +28,7 @@ using namespace std;
 
 int main() {
 	for (int nN; cin >> nN; ) {
-		double lfLog10 = nN * log10(2);
+		double lfLog10 = nN * log10(2.0);
 		int nY = 1 + lfLog10;
 		double lfBase = pow(10, nY - lfLog10) - 1E-10;
 		cout << "2^" << "-" << nN << " = " << setprecision(3) << fixed << lfBase << "e-" << nY << endl;
