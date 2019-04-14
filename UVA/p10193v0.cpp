@@ -10,6 +10,11 @@
 
 #include <stdio.h>
 
+#if !defined(ONLINE_JUDGE) && (_MSC_VER >= 1900)
+	#include <limits.h>
+	#define gets(a) gets_s(a, INT_MAX)
+#endif // !defined(ONLINE_JUDGE) && (_MSC_VER >= 1900)
+
 #define MAX_LINE_LEN	32
 
 int main() {

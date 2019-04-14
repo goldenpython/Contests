@@ -9,6 +9,7 @@
 
 
 #include <iostream>
+#include <algorithm>
 
 int main() {
 	for (int nA, nB; std::cin >> nA >> nB; )

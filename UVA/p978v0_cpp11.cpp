@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <functional>
 
 using namespace std;
 
