@@ -20,7 +20,7 @@ int main() {
 		std::cin >> nGridSize;
 		std::vector<std::vector<int>> arr2nGrid;
 		const int nTargetValue = (1 << (nGridSize + 1)) - 2;
-		const int nGridSizeSq = static_cast<int>(sqrt(nGridSize));
+		const int nGridSizeSq = static_cast<int>(sqrt(static_cast<double>(nGridSize)));
 		std::vector<int> arrnRowMask(nGridSize, 0), arrnColumnMask(nGridSize, 0), arrnSquares(nGridSize, 0);
 		//int nDiag1Mask = 0, nDiag2Mask = 0;
 		for (int nLoopRow = 0; nLoopRow < nGridSize; nLoopRow++) {

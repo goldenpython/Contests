@@ -5,7 +5,7 @@
 *    bc9a53289baf23d369484f5343ed5d6c                                          *
 *******************************************************************************/
 
-/*   Problem 1709 - Amalgamated Artichokes                                    */
+/*   Problem 10286 - Trouble with a Pentagon                                  */
 
 
 #include <iostream>
@@ -14,20 +14,16 @@
 
 using namespace std;
 
-int main() {
-	int nP, nA, nB, nC, nD, nN;
-	while (cin >> nP >> nA >> nB >> nC >> nD >> nN) {
-		double fSol = 0;
-		double fMax = (sin(static_cast<double>(nA + nB)) + cos(static_cast<double>(nC + nD)) + 2);
-		for (int nLoop = 2; nLoop <= nN; nLoop++) {
-			double fPrice = (sin(static_cast<double>(nA * nLoop + nB)) + cos(static_cast<double>(nC * nLoop + nD)) + 2);
-			if (fMax - fPrice > fSol)
-				fSol = fMax - fPrice;
-			else if (fPrice > fMax)
-				fMax = fPrice;
-		}
+double DegreesToRadians(double lfDegrees) {
+	const double PI = 3.14159265359;
+	return PI * lfDegrees / 180;
+}
 
-		cout << setprecision(6) << fixed << nP * fSol << endl;
+int main() {
+	for (double lfPentagonSideLen; cin >> lfPentagonSideLen; ) {
+		// Up-left side triangle has angles of 108, 9, 63
+		// Thus, using law of the sines (https://en.wikipedia.org/wiki/Law_of_sines) 
+		cout << setprecision(12) << fixed << lfPentagonSideLen *  sin(DegreesToRadians(108)) / sin(DegreesToRadians(63)) << endl;
 	}
 
 	return 0;
