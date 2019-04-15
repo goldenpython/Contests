@@ -13,22 +13,22 @@
 using System;
 
 public class Lost_In_Localization {
-    private class A : IComparable {
+    private class NumberDesignation : IComparable {
         public static string GetDesignation(int number) {
-            int index = Array.BinarySearch<A>(array, new A(number));
+            int index = Array.BinarySearch<NumberDesignation>(array, new NumberDesignation(number));
             if (index < 0)
                 index = ~index;
 
             return array[index].designation;
         }
 
-        private A(int number, string designation = "") {
+        private NumberDesignation(int number, string designation = "") {
             this.number = number;
             this.designation = designation;
         }
 
         public int CompareTo(object obj) {
-            A rhs = obj as A;
+            NumberDesignation rhs = obj as NumberDesignation;
 
             if (number < rhs.number)
                 return -1;
@@ -38,27 +38,27 @@ public class Lost_In_Localization {
                 return 0;
         }
 
-        static A() {
-            array = new A[] {
-                new A(4, "few"),
-                new A(9, "several"),
-                new A(19, "pack"),
-                new A(49, "lots"),
-                new A(99, "horde"),
-                new A(249, "throng"),
-                new A(499, "swarm"),
-                new A(999, "zounds"),
-                new A(2001, "legion")
+        static NumberDesignation() {
+            array = new NumberDesignation[] {
+                new NumberDesignation(4, "few"),
+                new NumberDesignation(9, "several"),
+                new NumberDesignation(19, "pack"),
+                new NumberDesignation(49, "lots"),
+                new NumberDesignation(99, "horde"),
+                new NumberDesignation(249, "throng"),
+                new NumberDesignation(499, "swarm"),
+                new NumberDesignation(999, "zounds"),
+                new NumberDesignation(2001, "legion")
             };
         }
 
         private readonly int number;
         private readonly string designation;
-        private readonly static A[] array;
+        private readonly static NumberDesignation[] array;
     }
 
     private static void Main() {
         int noMonsters = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine(A.GetDesignation(noMonsters));
+        Console.WriteLine(NumberDesignation.GetDesignation(noMonsters));
     }
 }
