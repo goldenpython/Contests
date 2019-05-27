@@ -1,3 +1,6 @@
+// TimusCpp.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
 #include <iostream>
 #include <map>
 #include <unordered_map>
@@ -9,7 +12,7 @@
 
 
 
-const int SIZE = 56;
+const int SIZE = 19;
 template <typename T>
 struct A {
 	T tTotal;
@@ -18,7 +21,8 @@ struct A {
 	T arrPartialsum[SIZE + 1];
 };
 
-static A<long long> arr[300000];
+static A<long long> arr[286000];
+const auto llLIM = static_cast<long long>(pow(10, 16));
 
 using namespace std;
 
@@ -37,7 +41,6 @@ long decibinaryNumbers(long x) {
 			arr[nLoop].tTotalPartialSum = nLoop;
 		}
 
-		auto llLIM = static_cast<long long>(pow(10, 16));
 		auto ttTotal = 0LL;
 
 		auto nLoop = 2;
@@ -138,9 +141,16 @@ int main() {
 	// decibinaryNumbers(57297); // 57297, 124145, 113
 	// decibinaryNumbers(149056);
 	// decibinaryNumbers(149057);
+
 	cout << decibinaryNumbers(707954) << endl;
 	cout << decibinaryNumbers(711448) << endl;
 	cout << decibinaryNumbers(711514) << endl;
+	cout << decibinaryNumbers(llLIM) << endl;
+
+	assert(2009790 == decibinaryNumbers(707954));
+	assert(11022006 == decibinaryNumbers(711448));
+	assert(88799 == decibinaryNumbers(711514));
+	assert(900579674 == decibinaryNumbers(llLIM));
 
     std::cout << "Hello World!\n"; 
 
